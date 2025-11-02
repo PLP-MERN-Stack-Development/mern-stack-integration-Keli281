@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { postService } from '../services/api';
+import Comments from '../components/Comments';
 
 const PostPage = () => {
   const { id } = useParams();
@@ -39,7 +40,8 @@ const PostPage = () => {
         border: '1px solid #ddd', 
         padding: '30px', 
         borderRadius: '8px',
-        backgroundColor: '#978585ff'
+        backgroundColor: '#978585ff',
+        marginBottom: '30px'
       }}>
         <h1 style={{ margin: '0 0 20px 0', color: '#000' }}>{post.title}</h1>
         <div style={{ 
@@ -58,6 +60,9 @@ const PostPage = () => {
           {post.slug && <p>Slug: {post.slug}</p>}
         </div>
       </div>
+
+      {/* Comments Section */}
+      <Comments postId={post._id} />
     </div>
   );
 };

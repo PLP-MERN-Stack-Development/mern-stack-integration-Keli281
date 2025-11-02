@@ -1,5 +1,4 @@
-// Post.js - Mongoose model for blog posts
-
+// models/Post.js
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
@@ -16,7 +15,7 @@ const PostSchema = new mongoose.Schema(
     },
     featuredImage: {
       type: String,
-      default: 'default-post.jpg',
+      default: '', // Changed from 'default-post.jpg' to empty string
     },
     slug: {
       type: String,
@@ -51,10 +50,16 @@ const PostSchema = new mongoose.Schema(
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
+          required: true,
+        },
+        username: {
+          type: String,
+          required: true,
         },
         content: {
           type: String,
-          required: true,
+          required: [true, 'Comment content is required'],
+          maxlength: [500, 'Comment cannot be more than 500 characters'],
         },
         createdAt: {
           type: Date,
@@ -97,4 +102,4 @@ PostSchema.methods.incrementViewCount = function () {
   return this.save();
 };
 
-module.exports = mongoose.model('Post', PostSchema); 
+module.exports = mongoose.model('Post', PostSchema);

@@ -22,7 +22,9 @@ export const CategoriesProvider = ({ children }) => {
 
   const fetchCategories = async () => {
     try {
+      console.log('Fetching categories...');
       const categoriesData = await categoryService.getAllCategories();
+      console.log('Categories fetched:', categoriesData);
       setCategories(categoriesData);
     } catch (error) {
       console.error('Error fetching categories:', error);

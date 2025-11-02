@@ -40,9 +40,12 @@ api.interceptors.response.use(
 
 // Post API services
 export const postService = {
-  // Get all posts with optional pagination and filters
-  getAllPosts: async (page = 1, limit = 10, category = null) => {
+  // Get all posts with optional pagination, filters, and search
+  getAllPosts: async (page = 1, limit = 10, search = '', category = null) => {
     let url = `/posts?page=${page}&limit=${limit}`;
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
+    }
     if (category) {
       url += `&category=${category}`;
     }
@@ -80,7 +83,7 @@ export const postService = {
     return response.data;
   },
 
-  // Search posts
+  // Search posts (legacy - use getAllPosts with search parameter instead)
   searchPosts: async (query) => {
     const response = await api.get(`/posts/search?q=${query}`);
     return response.data;

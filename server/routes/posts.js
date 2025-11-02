@@ -3,13 +3,59 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-// GET /api/posts - Get all blog posts
+// GET /api/posts - Get all blog posts with pagination, search, and filtering
 router.get('/', async (req, res) => {
   try {
-    console.log('Fetching all posts...');
-    const posts = await Post.find();
-    console.log(`Found ${posts.length} posts`);
-    res.json(posts);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+
+    console.log(`Fetching posts - Page: ${page}, Limit: ${limit}, Search: "${search}", Category: "${category}"`);
+    
+    // Build query for search and filtering
+    let query = {};
+    
+    // Search in title and content
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { content: { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    // Filter by category
+    if (category) {
+      query.category = category;
+    }
+
+    // Get posts with pagination, search, and filtering
+    const posts = await Post.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    // Get total count for pagination info
+    const totalPosts = await Post.countDocuments(query);
+    const totalPages = Math.ceil(totalPosts / limit);
+
+    console.log(`Found ${posts.length} posts (Page ${page} of ${totalPages})`);
+    
+    res.json({
+      posts,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalPosts,
+        hasNext: page < totalPages,
+        hasPrev: page > 1
+      },
+      filters: {
+        search,
+        category
+      }
+    });
   } catch (error) {
     console.error('Error fetching posts:', error);
     res.status(500).json({ error: error.message });
@@ -114,6 +160,69 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Post deleted successfully', deletedPost: post });
   } catch (error) {
     console.error('Error deleting post:', error);
+    
+    if (error.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid post ID' });
+    }
+    
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/posts/:id/comments - Add a comment to a post
+router.post('/:id/comments', async (req, res) => {
+  try {
+    const { content, userId, username } = req.body;
+    
+    if (!content || !userId || !username) {
+      return res.status(400).json({ 
+        error: 'Content, userId, and username are required' 
+      });
+    }
+
+    const post = await Post.findById(req.params.id);
+    
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Add the comment
+    post.comments.push({
+      user: userId,
+      username: username,
+      content: content,
+      createdAt: new Date()
+    });
+
+    const savedPost = await post.save();
+    
+    // Return the newly added comment (last one in the array)
+    const newComment = savedPost.comments[savedPost.comments.length - 1];
+    
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    
+    if (error.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid post ID' });
+    }
+    
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// GET /api/posts/:id/comments - Get all comments for a post
+router.get('/:id/comments', async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).select('comments');
+    
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json(post.comments);
+  } catch (error) {
+    console.error('Error fetching comments:', error);
     
     if (error.name === 'CastError') {
       return res.status(400).json({ error: 'Invalid post ID' });
