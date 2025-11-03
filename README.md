@@ -2,6 +2,12 @@
 
 A full-stack blog application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) featuring user authentication, CRUD operations, and a responsive UI.
 
+## SCREENSHOTS
+![demo 1](client/public/media/demo1.png)
+![demo 2](client/public/media/demo2.png)
+![demo 3](client/public/media/demo3.png)
+![demo 4](client/public/media/demo4.png)
+
 ##  Features 
 
 ### Backend (Express.js + MongoDB)
