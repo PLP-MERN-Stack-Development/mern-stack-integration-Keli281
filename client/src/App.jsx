@@ -19,33 +19,36 @@ const Header = () => {
   };
 
   return (
-    <header className="App-header" style={{ 
+    <header style={{ 
       padding: '20px', 
       textAlign: 'center',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       maxWidth: '1200px',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+      borderRadius: '0 0 15px 15px',
+      boxShadow: '0 4px 15px rgba(116, 185, 255, 0.3)',
+      color: 'white',
+      marginBottom: '30px'
     }}>
-      <h1 style={{ margin: 0 }}>
-        <a href="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+      <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: '700' }}>
+        <a href="/" style={{ color: 'white', textDecoration: 'none' }} className="pulse">
           MERN Blog
         </a>
       </h1>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         {user ? (
           <>
-            <span style={{ color: '#000' }}>Welcome, {user.username}!</span>
+            <span style={{ fontSize: '16px', fontWeight: '500' }}>
+              Welcome, {user.username}!
+            </span>
             <button 
               onClick={handleLogout}
+              className="btn-danger"
               style={{
                 padding: '8px 16px',
-                backgroundColor: '#dc3545',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
                 fontSize: '14px'
               }}
             >
@@ -53,10 +56,35 @@ const Header = () => {
             </button>
           </>
         ) : (
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <a href="/login" style={{ color: '#007bff', textDecoration: 'none' }}>Login</a>
-            <span style={{ color: '#000' }}>|</span>
-            <a href="/register" style={{ color: '#007bff', textDecoration: 'none' }}>Register</a>
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <a 
+              href="/login" 
+              style={{ 
+                color: 'white', 
+                textDecoration: 'none',
+                padding: '8px 16px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                borderRadius: '6px',
+                fontWeight: '500'
+              }}
+              className="pulse"
+            >
+              Login
+            </a>
+            <a 
+              href="/register" 
+              style={{ 
+                color: 'white', 
+                textDecoration: 'none',
+                padding: '8px 16px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                borderRadius: '6px',
+                fontWeight: '500'
+              }}
+              className="pulse"
+            >
+              Register
+            </a>
           </div>
         )}
       </div>
@@ -71,7 +99,11 @@ function AppContent() {
   return (
     <div className="App">
       <Header />
-      <main style={{ minHeight: 'calc(100vh - 80px)' }}>
+      <main style={{ 
+        minHeight: 'calc(100vh - 80px)',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
         <Routes>
           {/* If user tries to access login/register while logged in, redirect to home */}
           <Route path="/login" element={
@@ -83,10 +115,18 @@ function AppContent() {
           
           {/* If user tries to access home while not logged in, redirect to login */}
           <Route path="/" element={
-            user ? <HomePage /> : <Navigate to="/login" replace />
+            user ? (
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <HomePage />
+              </div>
+            ) : <Navigate to="/login" replace />
           } />
           
-          <Route path="/posts/:id" element={<PostPage />} />
+          <Route path="/posts/:id" element={
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <PostPage />
+            </div>
+          } />
         </Routes>
       </main>
     </div>

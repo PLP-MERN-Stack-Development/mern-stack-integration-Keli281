@@ -56,32 +56,51 @@ const Register = ({ onRegister }) => {
   };
 
   return (
-    <div style={{ 
-      border: '1px solid #ddd', 
-      padding: '30px', 
-      margin: '20px 0', 
-      borderRadius: '8px',
-      backgroundColor: '#978585ff',
-      maxWidth: '400px',
-      marginLeft: 'auto',
-      marginRight: 'auto'
+    <div className="fade-in" style={{ 
+      maxWidth: '450px',
+      margin: '50px auto',
+      padding: '40px',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      boxShadow: '0 15px 35px rgba(116, 185, 255, 0.2)',
+      border: '1px solid rgba(255, 255, 255, 0.3)'
     }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#000' }}>Register</h3>
+      <h3 style={{ 
+        textAlign: 'center', 
+        marginBottom: '30px', 
+        color: '#2d3436',
+        fontSize: '2rem',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent'
+      }}>
+        Create Account
+      </h3>
+      
       {error && (
         <div style={{ 
-          color: '#dc3545', 
-          backgroundColor: '#f8d7da',
-          padding: '10px',
-          borderRadius: '4px',
-          marginBottom: '15px',
-          border: '1px solid #f5c6cb'
+          color: '#d63031', 
+          backgroundColor: 'rgba(214, 48, 49, 0.1)',
+          padding: '15px',
+          borderRadius: '10px',
+          marginBottom: '20px',
+          border: '1px solid rgba(214, 48, 49, 0.2)',
+          textAlign: 'center'
         }}>
           {error}
         </div>
       )}
+      
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '8px', 
+            fontWeight: '600', 
+            color: '#2d3436',
+            fontSize: '14px'
+          }}>
             Username:
           </label>
           <input
@@ -92,15 +111,26 @@ const Register = ({ onRegister }) => {
             required
             style={{ 
               width: '100%', 
-              padding: '10px', 
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              boxSizing: 'border-box'
+              padding: '15px', 
+              border: '2px solid #dfe6e9',
+              borderRadius: '10px',
+              boxSizing: 'border-box',
+              fontSize: '16px',
+              transition: 'all 0.3s ease'
             }}
+            onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+            onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '8px', 
+            fontWeight: '600', 
+            color: '#2d3436',
+            fontSize: '14px'
+          }}>
             Email:
           </label>
           <input
@@ -111,15 +141,26 @@ const Register = ({ onRegister }) => {
             required
             style={{ 
               width: '100%', 
-              padding: '10px', 
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              boxSizing: 'border-box'
+              padding: '15px', 
+              border: '2px solid #dfe6e9',
+              borderRadius: '10px',
+              boxSizing: 'border-box',
+              fontSize: '16px',
+              transition: 'all 0.3s ease'
             }}
+            onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+            onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '8px', 
+            fontWeight: '600', 
+            color: '#2d3436',
+            fontSize: '14px'
+          }}>
             Password:
           </label>
           <input
@@ -130,15 +171,26 @@ const Register = ({ onRegister }) => {
             required
             style={{ 
               width: '100%', 
-              padding: '10px', 
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              boxSizing: 'border-box'
+              padding: '15px', 
+              border: '2px solid #dfe6e9',
+              borderRadius: '10px',
+              boxSizing: 'border-box',
+              fontSize: '16px',
+              transition: 'all 0.3s ease'
             }}
+            onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+            onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+
+        <div style={{ marginBottom: '25px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '8px', 
+            fontWeight: '600', 
+            color: '#2d3436',
+            fontSize: '14px'
+          }}>
             Confirm Password:
           </label>
           <input
@@ -149,32 +201,61 @@ const Register = ({ onRegister }) => {
             required
             style={{ 
               width: '100%', 
-              padding: '10px', 
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              boxSizing: 'border-box'
+              padding: '15px', 
+              border: '2px solid #dfe6e9',
+              borderRadius: '10px',
+              boxSizing: 'border-box',
+              fontSize: '16px',
+              transition: 'all 0.3s ease'
             }}
+            onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+            onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
           />
         </div>
+
         <button 
           type="submit" 
           disabled={loading}
+          className="btn-primary"
           style={{ 
-            padding: '12px 30px', 
-            backgroundColor: loading ? '#6c757d' : '#28a745',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            display: 'block',
-            margin: '0 auto',
+            width: '100%',
+            padding: '15px',
             fontSize: '16px',
-            width: '100%'
+            fontWeight: '600'
           }}
         >
-          {loading ? 'Registering...' : 'Register'}
+          {loading ? (
+            <span>
+              <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i>
+              Creating Account...
+            </span>
+          ) : (
+            'Create Account'
+          )}
         </button>
       </form>
+
+      <div style={{ 
+        textAlign: 'center', 
+        marginTop: '25px', 
+        paddingTop: '20px',
+        borderTop: '1px solid #dfe6e9'
+      }}>
+        <p style={{ color: '#636e72', marginBottom: '15px' }}>
+          Already have an account?
+        </p>
+        <a 
+          href="/login" 
+          className="btn-secondary"
+          style={{
+            display: 'inline-block',
+            textDecoration: 'none',
+            padding: '12px 25px'
+          }}
+        >
+          Sign In
+        </a>
+      </div>
     </div>
   );
 };

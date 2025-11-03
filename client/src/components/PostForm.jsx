@@ -107,24 +107,39 @@ const PostForm = ({ onPostCreated }) => {
   };
 
   return (
-    <div style={{ 
-      border: '1px solid #ddd', 
+    <div className="fade-in card-hover" style={{ 
       padding: '30px', 
-      margin: '20px 0', 
-      borderRadius: '8px',
-      backgroundColor: '#978585ff',
-      maxWidth: '600px',
-      marginLeft: 'auto',
-      marginRight: 'auto'
+      margin: '30px auto', 
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      boxShadow: '0 10px 30px rgba(116, 185, 255, 0.15)',
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      maxWidth: '700px',
+      width: '90%' // Added this line for better centering
     }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#000' }}>
+      <h3 style={{ 
+        textAlign: 'center', 
+        marginBottom: '25px', 
+        color: '#2d3436',
+        fontSize: '1.8rem',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent'
+      }}>
         {user ? 'Create New Post' : 'Please Login to Create Posts'}
       </h3>
       
       {user ? (
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#2d3436',
+              fontSize: '14px'
+            }}>
               Title:
             </label>
             <input
@@ -135,17 +150,27 @@ const PostForm = ({ onPostCreated }) => {
               disabled={loading}
               style={{ 
                 width: '100%', 
-                padding: '10px', 
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                boxSizing: 'border-box'
+                padding: '15px', 
+                border: '2px solid #dfe6e9',
+                borderRadius: '10px',
+                boxSizing: 'border-box',
+                fontSize: '16px',
+                transition: 'all 0.3s ease'
               }}
+              onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+              onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
             />
           </div>
 
           {!categoriesLoading && categories.length > 0 && (
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ 
+                display: 'block', 
+                marginBottom: '8px', 
+                fontWeight: '600', 
+                color: '#2d3436',
+                fontSize: '14px'
+              }}>
                 Category:
               </label>
               <select
@@ -155,19 +180,23 @@ const PostForm = ({ onPostCreated }) => {
                 disabled={loading}
                 style={{ 
                   width: '100%', 
-                  padding: '10px', 
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
+                  padding: '15px', 
+                  border: '2px solid #dfe6e9',
+                  borderRadius: '10px',
                   boxSizing: 'border-box',
                   backgroundColor: 'white',
-                  color: '#000'
+                  color: '#2d3436',
+                  fontSize: '16px',
+                  transition: 'all 0.3s ease'
                 }}
+                onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+                onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
               >
                 {categories.map(category => (
                   <option 
                     key={category._id} 
                     value={category._id}
-                    style={{ color: '#000', backgroundColor: 'white' }}
+                    style={{ color: '#2d3436', backgroundColor: 'white' }}
                   >
                     {category.name}
                   </option>
@@ -177,8 +206,14 @@ const PostForm = ({ onPostCreated }) => {
           )}
 
           {/* Image Upload Section */}
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#2d3436',
+              fontSize: '14px'
+            }}>
               Featured Image:
             </label>
             <input
@@ -188,44 +223,46 @@ const PostForm = ({ onPostCreated }) => {
               disabled={loading || uploadingImage}
               style={{ 
                 width: '100%', 
-                padding: '10px', 
-                border: '1px solid #ccc',
-                borderRadius: '4px',
+                padding: '12px', 
+                border: '2px solid #dfe6e9',
+                borderRadius: '10px',
                 boxSizing: 'border-box',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                fontSize: '14px',
+                transition: 'all 0.3s ease'
               }}
+              onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+              onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
             />
             {uploadingImage && (
-              <p style={{ color: '#000', fontSize: '14px', margin: '5px 0' }}>
+              <p style={{ color: '#636e72', fontSize: '14px', margin: '10px 0' }}>
+                <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i>
                 Uploading image...
               </p>
             )}
             
             {/* Image Preview */}
             {imagePreview && (
-              <div style={{ marginTop: '10px' }}>
+              <div style={{ marginTop: '15px' }}>
                 <img 
                   src={imagePreview} 
                   alt="Preview" 
                   style={{ 
                     maxWidth: '100%', 
                     maxHeight: '200px', 
-                    borderRadius: '4px',
-                    border: '1px solid #ddd'
+                    borderRadius: '10px',
+                    border: '2px solid #dfe6e9',
+                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
                   }} 
                 />
                 <button
                   type="button"
                   onClick={removeImage}
+                  className="btn-danger"
                   style={{
-                    marginTop: '5px',
-                    padding: '5px 10px',
-                    backgroundColor: '#dc3545',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontSize: '12px'
+                    marginTop: '10px',
+                    padding: '8px 16px',
+                    fontSize: '14px'
                   }}
                 >
                   Remove Image
@@ -234,8 +271,14 @@ const PostForm = ({ onPostCreated }) => {
             )}
           </div>
 
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: '#000' }}>
+          <div style={{ marginBottom: '25px' }}>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: '#2d3436',
+              fontSize: '14px'
+            }}>
               Content:
             </label>
             <textarea
@@ -245,57 +288,55 @@ const PostForm = ({ onPostCreated }) => {
               disabled={loading}
               style={{ 
                 width: '100%', 
-                height: '120px', 
-                padding: '10px', 
-                border: '1px solid #ccc',
-                borderRadius: '4px',
+                height: '150px', 
+                padding: '15px', 
+                border: '2px solid #dfe6e9',
+                borderRadius: '10px',
                 boxSizing: 'border-box',
-                resize: 'vertical'
+                resize: 'vertical',
+                fontSize: '16px',
+                transition: 'all 0.3s ease',
+                fontFamily: 'inherit'
               }}
+              onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+              onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
             />
           </div>
+          
           <button 
             type="submit" 
             disabled={loading || uploadingImage}
+            className="btn-primary"
             style={{ 
-              padding: '12px 30px', 
-              backgroundColor: (loading || uploadingImage) ? '#6c757d' : '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: (loading || uploadingImage) ? 'not-allowed' : 'pointer',
-              display: 'block',
-              margin: '0 auto',
-              fontSize: '16px'
+              width: '100%',
+              padding: '15px',
+              fontSize: '16px',
+              fontWeight: '600'
             }}
           >
             {loading ? 'Creating Post...' : uploadingImage ? 'Uploading Image...' : 'Create Post'}
           </button>
         </form>
       ) : (
-        <div style={{ textAlign: 'center', color: '#000' }}>
-          <p>You need to be logged in to create posts.</p>
-          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '15px' }}>
+        <div style={{ textAlign: 'center', color: '#2d3436' }}>
+          <p style={{ fontSize: '16px', marginBottom: '20px' }}>You need to be logged in to create posts.</p>
+          <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' }}>
             <a 
               href="/login" 
+              className="btn-primary"
               style={{ 
-                padding: '10px 20px',
-                backgroundColor: '#007bff',
-                color: 'white',
                 textDecoration: 'none',
-                borderRadius: '4px'
+                padding: '12px 25px'
               }}
             >
               Login
             </a>
             <a 
               href="/register" 
+              className="btn-secondary"
               style={{ 
-                padding: '10px 20px',
-                backgroundColor: '#28a745',
-                color: 'white',
                 textDecoration: 'none',
-                borderRadius: '4px'
+                padding: '12px 25px'
               }}
             >
               Register

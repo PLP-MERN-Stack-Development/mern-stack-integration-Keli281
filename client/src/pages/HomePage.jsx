@@ -5,7 +5,12 @@ import PostForm from '../components/PostForm';
 
 const HomePage = () => {
   return (
-    <div>
+    <div style={{ 
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%'
+    }}>
       <PostForm />
       <PostList />
     </div>

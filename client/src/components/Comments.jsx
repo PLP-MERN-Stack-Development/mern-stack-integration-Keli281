@@ -47,71 +47,194 @@ const Comments = ({ postId }) => {
   };
 
   return (
-    <div style={{ marginTop: '30px' }}>
-      <h4 style={{ color: '#000', marginBottom: '15px' }}>Comments ({comments.length})</h4>
+    <div className="fade-in" style={{ marginTop: '40px' }}>
+      <h4 style={{ 
+        color: '#2d3436', 
+        marginBottom: '25px', 
+        fontSize: '1.8rem',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent'
+      }}>
+        Comments ({comments.length})
+      </h4>
       
       {/* Add Comment Form */}
       {user ? (
-        <form onSubmit={handleAddComment} style={{ marginBottom: '20px' }}>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment..."
-            required
-            style={{
-              width: '100%',
-              height: '80px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              marginBottom: '10px',
-              resize: 'vertical'
-            }}
-          />
-          <button
-            type="submit"
-            disabled={loading || !newComment.trim()}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: loading ? '#6c757d' : '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: loading ? 'not-allowed' : 'pointer'
-            }}
-          >
-            {loading ? 'Adding...' : 'Add Comment'}
-          </button>
-        </form>
+        <div className="card-hover" style={{
+          padding: '25px',
+          marginBottom: '30px',
+          background: 'rgba(255, 255, 255, 0.95)',
+          borderRadius: '15px',
+          boxShadow: '0 8px 25px rgba(116, 185, 255, 0.1)',
+          border: '1px solid rgba(255, 255, 255, 0.3)'
+        }}>
+          <form onSubmit={handleAddComment}>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '12px', 
+              fontWeight: '600', 
+              color: '#2d3436',
+              fontSize: '16px'
+            }}>
+              Add a Comment:
+            </label>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Share your thoughts..."
+              required
+              style={{
+                width: '100%',
+                height: '120px',
+                padding: '15px',
+                border: '2px solid #dfe6e9',
+                borderRadius: '10px',
+                marginBottom: '15px',
+                resize: 'vertical',
+                fontSize: '16px',
+                transition: 'all 0.3s ease',
+                fontFamily: 'inherit'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#74b9ff'}
+              onBlur={(e) => e.target.style.borderColor = '#dfe6e9'}
+            />
+            <button
+              type="submit"
+              disabled={loading || !newComment.trim()}
+              className="btn-primary"
+              style={{
+                padding: '12px 24px',
+                fontSize: '16px'
+              }}
+            >
+              {loading ? (
+                <span>
+                  <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i>
+                  Adding...
+                </span>
+              ) : (
+                'Post Comment'
+              )}
+            </button>
+          </form>
+        </div>
       ) : (
-        <p style={{ color: '#000', marginBottom: '20px' }}>
-          Please <a href="/login" style={{ color: '#007bff' }}>login</a> to add comments.
-        </p>
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '30px',
+          background: 'rgba(255, 255, 255, 0.8)',
+          borderRadius: '15px',
+          marginBottom: '30px'
+        }}>
+          <p style={{ color: '#2d3436', marginBottom: '15px', fontSize: '16px' }}>
+            Please login to add comments.
+          </p>
+          <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+            <a 
+              href="/login" 
+              className="btn-primary"
+              style={{ 
+                textDecoration: 'none',
+                padding: '10px 20px'
+              }}
+            >
+              Login
+            </a>
+            <a 
+              href="/register" 
+              className="btn-secondary"
+              style={{ 
+                textDecoration: 'none',
+                padding: '10px 20px'
+              }}
+            >
+              Register
+            </a>
+          </div>
+        </div>
       )}
 
       {/* Comments List */}
       <div>
         {comments.length === 0 ? (
-          <p style={{ color: '#000', fontStyle: 'italic' }}>No comments yet. Be the first to comment!</p>
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px',
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '15px',
+            color: '#636e72'
+          }}>
+            <div style={{ fontSize: '3rem', marginBottom: '15px' }}>💬</div>
+            <p style={{ fontSize: '16px', fontWeight: '600' }}>
+              No comments yet. Be the first to comment!
+            </p>
+          </div>
         ) : (
           comments.map((comment, index) => (
             <div
               key={index}
+              className="fade-in card-hover"
               style={{
-                border: '1px solid #ddd',
-                padding: '15px',
-                marginBottom: '10px',
-                borderRadius: '8px',
-                backgroundColor: '#f8f9fa'
+                padding: '20px',
+                marginBottom: '20px',
+                background: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '15px',
+                boxShadow: '0 5px 20px rgba(116, 185, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                animationDelay: `${index * 0.1}s`
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <strong style={{ color: '#000' }}>{comment.username}</strong>
-                <span style={{ color: '#666', fontSize: '12px' }}>
-                  {new Date(comment.createdAt).toLocaleDateString()}
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'flex-start',
+                marginBottom: '12px',
+                flexWrap: 'wrap',
+                gap: '10px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontWeight: '600',
+                    fontSize: '14px'
+                  }}>
+                    {comment.username.charAt(0).toUpperCase()}
+                  </div>
+                  <strong style={{ color: '#2d3436', fontSize: '16px' }}>
+                    {comment.username}
+                  </strong>
+                </div>
+                <span style={{ 
+                  color: '#636e72', 
+                  fontSize: '12px',
+                  background: 'rgba(116, 185, 255, 0.1)',
+                  padding: '4px 8px',
+                  borderRadius: '10px'
+                }}>
+                  {new Date(comment.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </span>
               </div>
-              <p style={{ color: '#000', margin: 0, lineHeight: '1.4' }}>
+              <p style={{ 
+                color: '#2d3436', 
+                margin: 0, 
+                lineHeight: '1.6',
+                fontSize: '15px'
+              }}>
                 {comment.content}
               </p>
             </div>
